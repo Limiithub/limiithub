@@ -1,196 +1,119 @@
--- 🧠 Zen Seeds GUI (unchanged, original functionality)
-pcall(function() game.CoreGui.ZenSeedsGui:Destroy() end)
-pcall(function() game.CoreGui.ZenSeedsToggleGui:Destroy() end)
-pcall(function() game.CoreGui.DeltaFixNoticeBox:Destroy() end)
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TitleLabel = Instance.new("TextLabel")
+local MessageLabel = Instance.new("TextLabel")
+local AlternativeMessageLabel = Instance.new("TextLabel") -- New label for alternative message
+local KrnlButton = Instance.new("TextButton")
+local CodexButton = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
 
-local toggleGui = Instance.new("ScreenGui")
-toggleGui.Name = "ZenSeedsToggleGui"
-toggleGui.Parent = game.CoreGui
-toggleGui.ResetOnSpawn = false
+-- Properties for ScreenGui
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local toggleBtn = Instance.new("TextButton")
-toggleBtn.Name = "ZenSeedsToggleBtn"
-toggleBtn.Parent = toggleGui
-toggleBtn.Size = UDim2.new(0, 40, 0, 40)
-toggleBtn.Position = UDim2.new(0, 10, 0.5, -20)
-toggleBtn.BackgroundColor3 = Color3.fromRGB(120, 180, 120)
-toggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-toggleBtn.Font = Enum.Font.FredokaOne
-toggleBtn.TextSize = 28
-toggleBtn.Text = "C"
-toggleBtn.AutoButtonColor = true
-toggleBtn.ZIndex = 10
-toggleBtn.Active = true
-toggleBtn.Draggable = true
-toggleBtn.BorderSizePixel = 0
-toggleBtn.BackgroundTransparency = 0
+-- Properties for Frame
+Frame.Size = UDim2.new(0.5, 0, 0.5, 0) -- Height adjusted for additional text
+Frame.Position = UDim2.new(0.25, 0, 0.3, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(255, 99, 71) -- Tomato color for urgency
+Frame.BorderSizePixel = 0
+Frame.Parent = ScreenGui
 
-local uicorner = Instance.new("UICorner", toggleBtn)
-uicorner.CornerRadius = UDim.new(1, 0)
+-- Add a background image (optional)
+local BackgroundImage = Instance.new("ImageLabel")
+BackgroundImage.Size = UDim2.new(1, 0, 1, 0)
+BackgroundImage.Image = "rbxassetid://YOUR_IMAGE_ID" -- Replace with a garden-themed image ID
+BackgroundImage.BackgroundTransparency = 1
+BackgroundImage.Parent = Frame
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ZenSeedsGui"
-screenGui.Parent = game.CoreGui
-screenGui.ResetOnSpawn = false
-screenGui.Enabled = false
+-- Properties for TitleLabel
+TitleLabel.Size = UDim2.new(1, 0, 0.2, 0)
+TitleLabel.Text = "⚠️ Trigger Warning: Action Required! ⚠️"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text for contrast
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Font = Enum.Font.Garamond
+TitleLabel.TextSize = 24
+TitleLabel.Parent = Frame
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 360, 0, 260)
-frame.Position = UDim2.new(0.3, 0, 0.3, 0)
-frame.BackgroundColor3 = Color3.fromRGB(200, 235, 200)
-frame.BorderSizePixel = 2
-frame.BorderColor3 = Color3.fromRGB(120, 180, 120)
-frame.Active = true
-frame.Draggable = true
-frame.Parent = screenGui
+-- Properties for MessageLabel
+MessageLabel.Size = UDim2.new(1, 0, 0.25, 0) -- Adjusted height
+MessageLabel.Position = UDim2.new(0, 0, 0.2, 0) -- Positioned below the title
+MessageLabel.Text = "Your executor is blocked by this script. Please take action immediately!"
+MessageLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text for contrast
+MessageLabel.BackgroundTransparency = 1
+MessageLabel.TextSize = 18
+MessageLabel.TextWrapped = true -- Allow text to wrap
+MessageLabel.Parent = Frame
 
-local title = Instance.new("TextLabel", frame)
-title.Size = UDim2.new(1, 0, 0, 40)
-title.BackgroundColor3 = Color3.fromRGB(170, 210, 170)
-title.Font = Enum.Font.FredokaOne
-title.TextSize = 24
-title.TextColor3 = Color3.fromRGB(40, 80, 40)
-title.Text = "🌸 Zen Seeds Predictor"
+-- Properties for AlternativeMessageLabel
+AlternativeMessageLabel.Size = UDim2.new(1, 0, 0.2, 0) -- Adjusted height
+AlternativeMessageLabel.Position = UDim2.new(0, 0, 0.45, 0) -- Positioned below the main message
+AlternativeMessageLabel.Text = "Use these 2 alternative executors to continue using our script. Thank you!"
+AlternativeMessageLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text for contrast
+AlternativeMessageLabel.BackgroundTransparency = 1
+AlternativeMessageLabel.TextSize = 16
+AlternativeMessageLabel.TextWrapped = true -- Allow text to wrap
+AlternativeMessageLabel.Parent = Frame
 
-local resultLabel = Instance.new("TextLabel", frame)
-resultLabel.Size = UDim2.new(1, -20, 0, 30)
-resultLabel.Position = UDim2.new(0, 10, 0, 50)
-resultLabel.BackgroundColor3 = Color3.fromRGB(220, 245, 220)
-resultLabel.Font = Enum.Font.Gotham
-resultLabel.TextSize = 18
-resultLabel.TextColor3 = Color3.fromRGB(50, 100, 50)
-resultLabel.Text = "Seed: The New Zen Event"
+-- Properties for KrnlButton
+KrnlButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+KrnlButton.Position = UDim2.new(0.1, 0, 0.7, 0) -- Positioned below the alternative message
+KrnlButton.Text = "Copy Krnl Link"
+KrnlButton.BackgroundColor3 = Color3.fromRGB(255, 228, 196) -- Light peach background
+KrnlButton.Parent = Frame
 
-local actionBtn = Instance.new("TextButton", frame)
-actionBtn.Size = UDim2.new(0.9, 0, 0, 40)
-actionBtn.Position = UDim2.new(0.05, 0, 0, 100)
-actionBtn.BackgroundColor3 = Color3.fromRGB(140, 210, 140)
-actionBtn.Font = Enum.Font.GothamBold
-actionBtn.TextSize = 20
-actionBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-actionBtn.Text = "🌿 Roll Seed"
+-- Properties for CodexButton
+CodexButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+CodexButton.Position = UDim2.new(0.5, 0, 0.7, 0) -- Positioned next to the Krnl button
+CodexButton.Text = "Copy Codex Link"
+CodexButton.BackgroundColor3 = Color3.fromRGB(255, 228, 196) -- Light peach background
+CodexButton.Parent = Frame
 
-local toggleScriptBtn = Instance.new("TextButton", frame)
-toggleScriptBtn.Size = UDim2.new(0.9, 0, 0, 40)
-toggleScriptBtn.Position = UDim2.new(0.05, 0, 0, 150)
-toggleScriptBtn.BackgroundColor3 = Color3.fromRGB(140, 210, 140)
-toggleScriptBtn.Font = Enum.Font.GothamBold
-toggleScriptBtn.TextSize = 20
-toggleScriptBtn.TextColor3 = Color3.fromRGB(0, 200, 0)
-toggleScriptBtn.Text = "Script: ON"
+-- Properties for CloseButton
+CloseButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
+CloseButton.Text = "X"
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 99, 71) -- Tomato color for close button
+CloseButton.Parent = Frame
 
-local switchBtn = Instance.new("TextButton", frame)
-switchBtn.Size = UDim2.new(0.9, 0, 0, 30)
-switchBtn.Position = UDim2.new(0.05, 0, 0, 200)
-switchBtn.BackgroundColor3 = Color3.fromRGB(180, 220, 180)
-switchBtn.Font = Enum.Font.Gotham
-switchBtn.TextSize = 16
-switchBtn.TextColor3 = Color3.fromRGB(50, 90, 50)
-switchBtn.Text = "Switch to Pet Mutator"
-
-local zenSeeds = {"Monoblooma", "Serenity", "Taro Flowers", "Zen Rocks", "Hinomai", "Maple Apple"}
-local petMuts = {
-    "Shiny", "Inverted", "Windy", "Frozen", "Golden", "Tiny",
-    "Mega", "IronSkin", "Radiant", "Shocked", "Rainbow", "Ascended"
-}
-
-local mode = "seeds"
-local enabled = true
-
-toggleBtn.MouseButton1Click:Connect(function()
-    screenGui.Enabled = not screenGui.Enabled
-end)
-
-toggleScriptBtn.MouseButton1Click:Connect(function()
-    enabled = not enabled
-    if enabled then
-        toggleScriptBtn.Text = "Script: ON"
-        toggleScriptBtn.TextColor3 = Color3.fromRGB(0, 200, 0)
-    else
-        toggleScriptBtn.Text = "Script: OFF"
-        toggleScriptBtn.TextColor3 = Color3.fromRGB(200, 0, 0)
-    end
-end)
-
-switchBtn.MouseButton1Click:Connect(function()
-    if mode == "seeds" then
-        mode = "pets"
-        title.Text = "🐾 Pets Mutation Randomizer"
-        resultLabel.Text = "Pet Mutation: ???"
-        actionBtn.Text = "🔁 Mutate Pet"
-        switchBtn.Text = "Switch to Zen Seeds"
-    else
-        mode = "seeds"
-        title.Text = "🌸 Zen Seeds Predictor"
-        resultLabel.Text = "Seed: The New Zen Event"
-        actionBtn.Text = "🌿 Roll Seed"
-        switchBtn.Text = "Switch to Pet Mutator"
-    end
-end)
-
-actionBtn.MouseButton1Click:Connect(function()
-    if not enabled then return end
-    if mode == "seeds" then
-        local s = zenSeeds[math.random(1, #zenSeeds)]
-        resultLabel.Text = "Seed: " .. s
-    else
-        local m = petMuts[math.random(1, #petMuts)]
-        resultLabel.Text = "Pet Mutation: " .. m
-    end
-end)
-
-math.randomseed(tick())
-print("✅ Zen Seeds GUI loaded!")
-
--- 🧾 Floating Notification with Close Button, Draggable, Spam x3
-for i = 1, 3 do
-    task.delay((i - 1) * 1.5, function()
-        local noticeGui = Instance.new("ScreenGui")
-        noticeGui.Name = "DeltaFixNoticeBox"
-        noticeGui.Parent = game.CoreGui
-        noticeGui.ResetOnSpawn = false
-
-        local noticeFrame = Instance.new("Frame", noticeGui)
-        noticeFrame.Size = UDim2.new(0, 600, 0, 160)
-        noticeFrame.Position = UDim2.new(0.5, -300, 0.05 + (i * 0.02), 0)
-        noticeFrame.BackgroundTransparency = 1
-        noticeFrame.Active = true
-        noticeFrame.Draggable = true
-
-        local messageLabel = Instance.new("TextLabel", noticeFrame)
-        messageLabel.Size = UDim2.new(1, -40, 1, 0)
-        messageLabel.Position = UDim2.new(0, 10, 0, 0)
-        messageLabel.BackgroundTransparency = 1
-        messageLabel.Font = Enum.Font.GothamBold
-        messageLabel.TextSize = 18
-        messageLabel.TextColor3 = Color3.new(1, 1, 1)
-        messageLabel.TextWrapped = true
-        messageLabel.TextYAlignment = Enum.TextYAlignment.Top
-        messageLabel.TextXAlignment = Enum.TextXAlignment.Center
-        messageLabel.ZIndex = 1000
-        messageLabel.Text = [[
-⚠ This script only works in **Krnl**.
-
-If you're using **Delta**, please **turn off Anti-Scam** in Settings.
-
-Delta blocks this script to stop rejoining after Anti-Scam is disabled.
-]]
-
-        local closeBtn = Instance.new("TextButton", noticeFrame)
-        closeBtn.Size = UDim2.new(0, 30, 0, 30)
-        closeBtn.Position = UDim2.new(1, -35, 0, 5)
-        closeBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-        closeBtn.Font = Enum.Font.GothamBold
-        closeBtn.TextSize = 20
-        closeBtn.Text = "X"
-        closeBtn.TextColor3 = Color3.new(1, 1, 1)
-        closeBtn.ZIndex = 1001
-
-        local btnCorner = Instance.new("UICorner", closeBtn)
-        btnCorner.CornerRadius = UDim.new(1, 0)
-
-        closeBtn.MouseButton1Click:Connect(function()
-            noticeGui:Destroy()
-        end)
-    end)
+-- Function to copy link
+local function copyToClipboard(link)
+    setclipboard(link)
 end
+
+-- Button click events
+KrnlButton.MouseButton1Click:Connect(function()
+    copyToClipboard("https://wearedevs.net/d/Krnl")
+end)
+
+CodexButton.MouseButton1Click:Connect(function()
+    copyToClipboard("https://codexexecutor.net/")
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- Movable functionality
+local dragging = false
+local dragStart = nil
+local startPos = nil
+
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = Frame.Position
+    end
+end)
+
+Frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement and dragging then
+        local delta = input.Position - dragStart
+        Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+Frame.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = false
+    end
+end)
